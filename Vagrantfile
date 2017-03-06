@@ -14,6 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             config.vm.boot_timeout = 360
             config.ssh.username = "vagrant"
             config.ssh.password = "vagrant"
+			#config.ssh.host  = opts[:ip]
             config.vm.synced_folder ".", "/vagrant"
             config.vm.network :public_network, ip: opts[:ip]
             #config.vm.network "private_network", ip: opts[:ip]
