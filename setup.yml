@@ -12,7 +12,8 @@
 
 - hosts: masters
   sudo: yes
-  roles:
+  roles:  
+          - flannel
           - kubernetes
           - master
           - skydns

@@ -1,7 +1,6 @@
 boxes = [
   { :name => :k8s1,:ip => '192.168.10.213',:cpus => 1,:mem => 1024,:gateway => '192.168.10.1',:provision=>'init_env.sh'},
-  { :name => :k8s2,:ip => '192.168.10.214',:cpus => 1,:mem => 1024,:gateway => '192.168.10.1',:provision=>'init_env.sh'},
-  { :name => :k8s3,:ip => '192.168.10.215',:cpus => 1,:mem => 1024,:gateway => '192.168.10.1',:provision=>'init_env.sh'},
+  { :name => :k8s2,:ip => '192.168.10.214',:cpus => 1,:mem => 1024,:gateway => '192.168.10.1',:provision=>'init_env.sh'}
   ]
 
 VAGRANTFILE_API_VERSION = "2"

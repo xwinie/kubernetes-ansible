@@ -1,0 +1,7 @@
+---
+- name: Copy the firewall script
+  template: src=firewall.sh.j2 dest=~/firewall.sh mode=755
+- name: Run the firewall script
+  command: ~/firewall.sh
+- name: Remove the firewall script
+  file: name=~/firewall.sh state=absent
