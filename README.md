@@ -22,7 +22,6 @@ You can modify inventory and then execute
 
     $ cd pre-setup
     $ ansible-playbook -i ../inventory ping.yml # This will look like it fails, that's ok
-    $ ansible-playbook -i ../inventory keys.yml
 
 ## Set up the actual kubernetes cluster
 
@@ -31,12 +30,3 @@ You already did the config!  Just run the setup::
     $ ansible-playbook -i inventory setup.yml
 
 # Changelog
-
-## 0.1
-
-- first version
-
-## 0.2
-
-- add skydns
-- add iptables for flannel

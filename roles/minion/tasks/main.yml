@@ -1,4 +1,7 @@
 ---
+- name: Install kubernetes client from RHEL7 packages
+  yum: pkg=kubernetes-client state=latest
+
 - name: write the config files for kubelet
   template: src=kubelet.j2 dest=/etc/kubernetes/kubelet
   notify:
@@ -17,4 +20,5 @@
 
 - include: iptables.yml
   when: has_iptables.rc == 0
-- include: firewall.yml
+# - include: firewall.yml
+

@@ -23,6 +23,10 @@
   command: /sbin/iptables -I FORWARD 1 -o flannel0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -m comment --comment "flannel-f3"
   when: iptablesrules.stdout.find("flannel-f2") == -1
 
+- name: Open apiserver port with iptables
+  command: /sbin/iptables -I FORWARD -s {{ kube_overlay_ip }}/16 -j ACCEPT -m comment --comment "flannel-f4"
+  when: iptablesrules.stdout.find("flannel-f4") == -1
+  
 - name: Save iptables rules
   command: service iptables save
   when: iptablesrules.stdout.find("flannel") == -1

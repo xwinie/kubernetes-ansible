@@ -17,6 +17,7 @@
           - kubernetes
           - master
           - skydns
+          - images
 
 - hosts: minions
   sudo: yes
@@ -24,4 +25,11 @@
           - kubernetes
           - flannel
           - minion
+          - images
 
+# - hosts: masters
+#   sudo: yes
+#   roles:  
+#           - images
+#           # - kube-dashboard
+        

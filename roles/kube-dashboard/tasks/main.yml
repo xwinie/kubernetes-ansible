@@ -1,0 +1,12 @@
+---
+- name: Write kubernetes-dashboard pod file
+  template: src=kubernetes-dashboard.yaml.j2 dest=~/kubernetes-dashboard.yaml mode=755
+  
+- name: Create kube-dashboard-rc pod
+  shell: kubectl create -f ~/kubernetes-dashboard.yaml
+
+- name: Remove the kubernetes-dashboard.yaml
+  file: name=~/kubernetes-dashboard.yaml state=absent
+
+
+

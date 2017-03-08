@@ -1,20 +1,26 @@
 ---
 - name: Install epel
   yum: name=epel-release state=latest
-- name: build centos7-nginx dockerfile
-  command: firewall-cmd --zone=public --add-port=8080/tcp --permanent
+# - name: start firewalld
+#   service: name=firewalld state=started
+# - name: build centos7-nginx dockerfile
+#   command: firewall-cmd --zone=public --add-port=8080/tcp --permanent
 
-# - name: Stop firewalld
-#   service: name=firewalld state=stopped
+- name: Stop firewalld
+  service: name=firewalld state=stopped
 
-# - name: Install iptables
-#   yum: name=iptables-services state=latest
+- name: Install iptables
+  yum: name=iptables-services state=latest
 
-# - name: Start iptables
-#   service: name=iptables state=started
+- name: Start iptables
+  service: name=iptables state=started
 
-# - name: Determine if iptables-services installed
-#   command: "rpm -q iptables-services"
+- name: Determine if iptables-services installed
+  command: "rpm -q iptables-services"
+  register: has_iptables
+  failed_when: "'package iptables-services is not installed' not in has_iptables.stdout and has_iptables.rc != 0"
+  changed_when: false
+
 
 - name: Set IP address variables
   set_fact:

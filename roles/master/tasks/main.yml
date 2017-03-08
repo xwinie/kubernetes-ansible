@@ -31,6 +31,6 @@
 - name: Enable scheduler
   service: name=kube-scheduler enabled=yes state=started
 
-# - include: iptables.yml
-#   when: has_iptables.rc == 0
-- include: firewall.yml
+- include: iptables.yml
+  when: has_iptables.rc == 0
+# - include: firewall.yml
