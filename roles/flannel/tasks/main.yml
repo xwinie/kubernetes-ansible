@@ -11,7 +11,7 @@
   service: name=flanneld state=started enabled=yes
   notify:
           - stop docker
-          # - delete docker0
+          - delete docker0
           - start docker
           - restart kubelet
 

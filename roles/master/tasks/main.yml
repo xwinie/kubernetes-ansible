@@ -11,6 +11,8 @@
           - restart apiserver
           - restart controller-manager
           - restart scheduler
+          - restart docker
+
 
 - name: write the new style config file for controller-manager
   template: src=controller-manager.j2 dest=/etc/kubernetes/controller-manager
@@ -31,6 +33,9 @@
 - name: Enable scheduler
   service: name=kube-scheduler enabled=yes state=started
 
+- name: Enable docker
+  service: name=docker enabled=yes state=started
+  
 - include: iptables.yml
   when: has_iptables.rc == 0
 # - include: firewall.yml

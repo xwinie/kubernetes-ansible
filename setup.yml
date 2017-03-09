@@ -4,32 +4,28 @@
   roles:
           - common
 
-- hosts: etcd
-  sudo: yes
-  roles:
-          - etcd
-          - flannel-config
-
-- hosts: masters
-  sudo: yes
-  roles:  
-          - flannel
-          - kubernetes
-          - master
-          - skydns
-          - images
-
-- hosts: minions
-  sudo: yes
-  roles:
-          - kubernetes
-          - flannel
-          - minion
-          - images
+# - hosts: etcd
+#   sudo: yes
+#   roles:
+#           - etcd
+#           - flannel-config
 
 # - hosts: masters
 #   sudo: yes
 #   roles:  
-#           - images
-#           # - kube-dashboard
-        
+#           - flannel
+#           - kubernetes
+#           - master
+
+# - hosts: minions
+#   sudo: yes
+#   roles:
+#           - kubernetes
+#           - flannel
+#           - minion
+#           - k8s-images
+
+- hosts: masters
+  sudo: yes
+  roles:  
+          - kube-dns

@@ -5,6 +5,7 @@
           - restart apiserver
           - restart controller-manager
           - restart scheduler
+          - restart docker
 
 - name: restart apiserver
   service: name=kube-apiserver state=restarted
@@ -14,3 +15,6 @@
 
 - name: restart scheduler
   service: name=kube-scheduler state=restarted
+
+- name: restart docker
+  service: name=docker state=restarted
