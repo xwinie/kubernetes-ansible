@@ -1,41 +1,43 @@
 ---
-- hosts: all
-  become: yes
-  become_user: root
-  become_method: sudo
-  roles:
-          - common
+# - hosts: all
+#   become: yes
+#   become_user: root
+#   become_method: sudo
+#   roles:
+#           - common
 
-- hosts: etcd
-  become: yes
-  become_user: root
-  become_method: sudo
-  roles:
-          - etcd
-          - flannel-config
+# - hosts: etcd
+#   become: yes
+#   become_user: root
+#   become_method: sudo
+#   roles:
+#           - etcd
+#           - flannel-config
+
+# - hosts: masters
+#   become: yes
+#   become_user: root
+#   become_method: sudo
+#   roles:  
+#           - kubernetes
+#           - master
+
+# - hosts: minions
+#   become: yes
+#   become_user: root
+#   become_method: sudo
+#   roles:
+#           - kubernetes
+#           - flannel
+#           - minion
+#           - k8s-images
 
 - hosts: masters
   become: yes
   become_user: root
   become_method: sudo
   roles:  
-          - kubernetes
-          - master
-
-- hosts: minions
-  become: yes
-  become_user: root
-  become_method: sudo
-  roles:
-          - kubernetes
-          - flannel
-          - minion
-          - k8s-images
-
-- hosts: masters
-  become: yes
-  become_user: root
-  become_method: sudo
-  roles:  
-          - kube-dns
-          - kube-dashboard
+          # - kube-dns
+          # - kube-dashboard
+          # - cadvisor
+          - influxdb

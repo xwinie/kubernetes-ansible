@@ -1,0 +1,21 @@
+---
+- name: pull an cadvisor image
+  docker_image:
+    name: index.tenxcloud.com/google/cadvisor
+    
+- name: Write cadvisor pod file
+  template: src=cadvisor-rc.yml.j2 dest=/etc/kubernetes/cadvisor-rc.yaml
+
+- name: Check that the cadvisor pod exists
+  shell: kubectl get rc cadvisor
+  register: has_cadvisor_pod
+  failed_when: false
+  changed_when: false
+
+- name: Create cadvisor pod
+  shell: kubectl create -f /etc/kubernetes/cadvisor-rc.yaml
+  when:  has_cadvisor_pod.rc != 0
+
+- name: Update cadvisor replication service
+  shell: kubectl update -f /etc/kubernetes/cadvisor-rc.yaml
+  when: has_cadvisor_pod.rc == 0

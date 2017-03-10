@@ -32,7 +32,7 @@ You can modify inventory and then execute
 
 You already did the config!  Just run the setup::
 
-    $ ansible-playbook -i inventory setup.yml  #if vagrant ,need modified /etc/sysconf/flanneld:FLANNEL_OPTIONS="-iface=enp0s8"
+    $ ansible-playbook -i inventory setup.yml  #if vagrant ,run shell: sed -i 's/#FLANNEL_OPTIONS=""/FLANNEL_OPTIONS="-iface=enp0s8"/g' /etc/sysconfig/flanneld
 
 
 # Changelog
@@ -45,6 +45,8 @@ You already did the config!  Just run the setup::
 
 - add kubedns
 - add iptables for flannel
+
 ## 0.3
 
 - add kube-dashboard
+- add cadvisor
