@@ -1,31 +1,41 @@
 ---
 - hosts: all
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   roles:
           - common
 
-# - hosts: etcd
-#   sudo: yes
-#   roles:
-#           - etcd
-#           - flannel-config
-
-# - hosts: masters
-#   sudo: yes
-#   roles:  
-#           - flannel
-#           - kubernetes
-#           - master
-
-# - hosts: minions
-#   sudo: yes
-#   roles:
-#           - kubernetes
-#           - flannel
-#           - minion
-#           - k8s-images
+- hosts: etcd
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+          - etcd
+          - flannel-config
 
 - hosts: masters
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:  
+          - kubernetes
+          - master
+
+- hosts: minions
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+          - kubernetes
+          - flannel
+          - minion
+          - k8s-images
+
+- hosts: masters
+  become: yes
+  become_user: root
+  become_method: sudo
   roles:  
           - kube-dns
+          - kube-dashboard

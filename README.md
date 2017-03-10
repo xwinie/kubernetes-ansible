@@ -15,8 +15,13 @@ This script deploy three parts of cluster, etcd, master and one or more nodes.
 |node|kube-proxy/flannl/kubelet/docker|
 
 # How to use
+    $ vagrant up
+    $ vagrant ssh k8s1 # Every Node computer
+    $ sudo systemctl restart network
 
 ## Set up ssh access via public keys
+    $ ssh-keygen
+    $ ssh-copy-id vagrant@192.168.10.213
 
 You can modify inventory and then execute 
 
@@ -27,6 +32,19 @@ You can modify inventory and then execute
 
 You already did the config!  Just run the setup::
 
-    $ ansible-playbook -i inventory setup.yml
+    $ ansible-playbook -i inventory setup.yml  #if vagrant ,need modified /etc/sysconf/flanneld:FLANNEL_OPTIONS="-iface=enp0s8"
+
 
 # Changelog
+
+## 0.1
+
+- first version
+
+## 0.2
+
+- add kubedns
+- add iptables for flannel
+## 0.3
+
+- add kube-dashboard

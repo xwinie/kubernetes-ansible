@@ -39,7 +39,7 @@ dns_domain: kube.local.
 # server and expose it under this IP address. The IP address must be from
 # the range specified as kube_service_addresses above.
 # And this is the IP address you should use as address of the DNS server
-# in your containers.
+# in your containers. docker.io/kubernetes/pause 
 dns_server: 10.254.0.10
 
-pod_infra_image: docker.io/kubernetes/pause
+pod_infra_image: registry.cn-hangzhou.aliyuncs.com/google-containers/pause-amd64:3.0
