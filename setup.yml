@@ -40,4 +40,4 @@
           # - kube-dns
           # - kube-dashboard
           # - cadvisor
-          - influxdb
+           - influxdb

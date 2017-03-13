@@ -5,6 +5,11 @@
 - name: Install kubernetes client from RHEL7 packages
   yum: pkg=kubernetes-client state=latest
 
+- name: write the ca.sh files
+  template: src=ca.sh.j2 dest=/etc/kubernetes/ca.sh  mode=0755
+
+- name: execute ca.sh 
+  script: /etc/kubernetes/ca.sh
 - name: write the config files for api server
   template: src=apiserver.j2 dest=/etc/kubernetes/apiserver
   notify:
@@ -12,7 +17,6 @@
           - restart controller-manager
           - restart scheduler
           - restart docker
-
 
 - name: write the new style config file for controller-manager
   template: src=controller-manager.j2 dest=/etc/kubernetes/controller-manager
