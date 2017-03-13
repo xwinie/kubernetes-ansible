@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 openssl genrsa -out /var/run/kubernetes/ca.key 2048
-openssl req -x509 -new -nodes -key ca.key -subj "/CN=master.k8s.com" -days 5000 -out /var/run/kubernetes/ca.crt
+openssl req -x509 -new -nodes -key /var/run/kubernetes/ca.key -subj "/CN=master.k8s.com" -days 5000 -out /var/run/kubernetes/ca.crt
 openssl genrsa -out /var/run/kubernetes/server.key 2048
-openssl req -new -key server.key -subj "/CN={{ inventory_hostname }}" -out /var/run/kubernetes/server.csr
-openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out /var/run/kubernetes/server.crt -days 5000
+openssl req -new -key /var/run/kubernetes/server.key -subj "/CN={{ inventory_hostname }}" -out /var/run/kubernetes/server.csr
+openssl x509 -req -in /var/run/kubernetes/server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out /var/run/kubernetes/server.crt -days 5000
