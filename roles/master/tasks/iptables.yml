@@ -11,10 +11,10 @@
   command: /sbin/iptables -I INPUT 1 -p tcp --dport 8080 -j ACCEPT -m comment --comment "kube-apiserver"
   when: iptablesrules.stdout.find("kube-apiserver") == -1
 
-- name: Open  icmp-host-prohibited  forward with iptables
+- name: delete  icmp-host-prohibited  forward with iptables
   command: /sbin/iptables -D FORWARD -j REJECT --reject-with icmp-host-prohibited
 # iptables -I FORWARD -s 10.1.0.0/16 -j ACCEPT
-- name: Open  icmp-host-prohibited  input with iptables
+- name: delete  icmp-host-prohibited  input with iptables
   command: /sbin/iptables -D INPUT -j REJECT --reject-with icmp-host-prohibited
 
 - name: Save iptables rules
