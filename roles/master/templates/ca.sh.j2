@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
-openssl genrsa -out /var/run/kubernetes/ca.key 2048
-openssl req -x509 -new -nodes -key /var/run/kubernetes/ca.key -subj "/CN=master.k8s.com" -days 5000 -out /var/run/kubernetes/ca.crt
-openssl genrsa -out /var/run/kubernetes/server.key 2048
-openssl req -new -key /var/run/kubernetes/server.key -subj "/CN={{ inventory_hostname }}" -out /var/run/kubernetes/server.csr
-openssl x509 -req -in /var/run/kubernetes/server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out /var/run/kubernetes/server.crt -days 5000
+cd /etc/kubernetes/ssl
+# 生成根证书
+openssl genrsa -out dd_ca.key 2048
+openssl req -x509 -new -nodes -key dd_ca.key -subj "/CN=k8s" -days 5000 -out dd_ca.crt
+#生成 API Server 服务端证书和私钥
+openssl genrsa -out dd_server.key 2048
+HN=`hostname`
+openssl req -new -key dd_server.key -subj "/CN=$HN" -out dd_server.csr
+openssl x509 -req -in dd_server.csr -CA dd_ca.crt -CAkey dd_ca.key -CAcreateserial-out dd_server.crt -days 5000
+# 生成 Controller Manager 与 Scheduler 进程共用的证书和私钥
+openssl genrsa -out dd_cs_client.key 2048
+openssl req -new -key dd_cs_client.key -subj "/CN=$HN" -out dd_cs_client.csr
+openssl x509 -req -in dd_cs_client.csr －CA dd_ca.crt -CAkey dd_ca.key -CAcreateserial -out dd_cs_client.crt -days 5000
+#生成 Kubelet 所用的客户端证书和私钥
+#注意，这里假设 Kubelet 所在机器的 IP 地址为 192.168.1.129。
+openssl genrsa -out dd_kubelet_client.key 2048
+openssl req -new -key dd_kubelet_client.key -subj "/CN=192.168.10.129" -out dd_kubelet_client.csr
+openssl x509 -req -in dd_kubelet_client.csr -CA dd_ca.crt -CAkey dd_ca.key -CAcreateserial -out dd_kubelet_client.crt -days 5000

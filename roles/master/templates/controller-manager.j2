@@ -4,5 +4,5 @@
 # defaults from config and apiserver should be adequate
 
 # Add your own!
-KUBE_CONTROLLER_MANAGER_ARGS="--service-account-private-key-file=/var/run/kubernetes/server.key \
-                              --root-ca-file=/var/run/kubernetes/ca.crt"
+KUBE_CONTROLLER_MANAGER_ARGS=" --service_account_private_key_file=/etc/kubernetes/ssl/server.key \
+                               --root-ca-file=/etc/kubernetes/ssl/ca.crt"

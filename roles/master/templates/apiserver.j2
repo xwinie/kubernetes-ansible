@@ -18,8 +18,7 @@ KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range={{ kube_service_addresses }}"
 
 # default admission control policies
 KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota"
-#KUBE_ADMISSION_CONTROL="--admission_control=NamespaceLifecycle,NamespaceExists,LimitRanger,ResourceQuota"
 # Add you own!
-KUBE_API_ARGS="--client-ca-file=/var/run/kubernetes/ca.crt \
-               --tls-private-key-file=/var/run/kubernetes/server.key \
-               --tls-cert-file=/var/run/kubernetes/server.crt"
+KUBE_API_ARGS=" --client-ca-file=/etc/kubernetes/ssl/ca.crt \
+                --tls-private-key-file=/etc/kubernetes/ssl/server.key \
+                --tls-cert-file=/etc/kubernetes/ssl/server.crt"

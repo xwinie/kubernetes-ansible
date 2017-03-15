@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 echo "update yum repository..."
-
 #sudo systemctl restart network
-sudo rpm -iUvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo yum install epel-release -y
 sudo yum provides '*/applydeltarpm'
 sudo yum install deltarpm -y
 sudo yum install applydeltarpm -y
