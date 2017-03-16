@@ -28,17 +28,17 @@
   become_user: root
   become_method: sudo
   roles:
-          # - kubernetes
-          # - flannel
-          # - minion
+          - kubernetes
+          - flannel
+          - minion
           - k8s-images
 
-- hosts: masters
-  become: yes
-  become_user: root
-  become_method: sudo
-  roles:  
-          - kube-dns
-          - kube-dashboard
-          - cadvisor
-          - influxdb
+# - hosts: masters
+#   become: yes
+#   become_user: root
+#   become_method: sudo
+#   roles:  
+#           - kube-dns
+#           - kube-dashboard
+#           - cadvisor
+#           - influxdb

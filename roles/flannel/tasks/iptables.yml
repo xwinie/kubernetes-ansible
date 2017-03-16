@@ -27,6 +27,10 @@
   command: /sbin/iptables -I FORWARD -s {{ kube_overlay_ip }}/16 -j ACCEPT -m comment --comment "flannel-f4"
   when: iptablesrules.stdout.find("flannel-f4") == -1
   
+- name: Open apiserver port with iptables
+  command: ip route add {{ kube_service_addresses }} dev docker0
+  
+  
 - name: Save iptables rules
   command: service iptables save
   when: iptablesrules.stdout.find("flannel") == -1
