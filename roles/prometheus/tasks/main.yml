@@ -1,0 +1,13 @@
+---
+- name: Creates directory
+  file: path=/etc/kubernetes/yaml state=directory mode=0775
+
+
+- name:  copy manifests-all  
+  copy: src=prom-manifests-all.yaml dest=/etc/kubernetes/prom-manifests-all.yaml mode=0755 force=yes
+
+- name: Create manifests-all
+  shell: kubectl apply  -f /etc/kubernetes/yaml/prom-manifests-all.yaml
+
+
+

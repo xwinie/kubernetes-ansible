@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl-util
+spec:
+  containers:
+  - name: curl-util
+    image: registry.cn-hangzhou.aliyuncs.com/magina-k8s/busyboxplus:curl
+    command:
+    - sh
+    - -c
+    - while true;do sleep 1;done
