@@ -14,3 +14,5 @@ sudo pip install docker-py
 # ssh-copy-id vagrant@192.168.10.213
 # FLANNEL_OPTIONS="-iface=enp0s8"
 # ip route add 10.254.0.0/16 dev docker0  --ip-masq=false
+#  /sbin/iptables -D FORWARD -j REJECT --reject-with icmp-host-prohibited 
+# /sbin/iptables -D INPUT -j REJECT --reject-with icmp-host-prohibited

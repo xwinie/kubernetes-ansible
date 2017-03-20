@@ -11,11 +11,11 @@
   command: /sbin/iptables -I INPUT 1 -p tcp --dport 10250 -j ACCEPT -m comment --comment "kubelet"
   when: iptablesrules.stdout.find("kubelet") == -1
 
-- name: delete  icmp-host-prohibited  forward with iptables
-  command: /sbin/iptables -D FORWARD -j REJECT --reject-with icmp-host-prohibited 
+# - name: delete  icmp-host-prohibited  forward with iptables
+#   command: /sbin/iptables -D FORWARD -j REJECT --reject-with icmp-host-prohibited 
 
-- name: delete  icmp-host-prohibited  input with iptables
-  command: /sbin/iptables -D INPUT -j REJECT --reject-with icmp-host-prohibited
+# - name: delete  icmp-host-prohibited  input with iptables
+#   command: /sbin/iptables -D INPUT -j REJECT --reject-with icmp-host-prohibited
 
 
 - name: Save iptables rules

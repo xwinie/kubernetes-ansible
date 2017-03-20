@@ -257,11 +257,10 @@ spec:
     metadata:
       labels:
         app: kube-state-metrics
-        version: "v0.3.0"
     spec:
       containers:
       - name: kube-state-metrics
-        image: registry.cn-shenzhen.aliyuncs.com/kim-docker/kube-state-metrics:v0.3.0
+        image: registry.cn-shenzhen.aliyuncs.com/kim-docker/kube-state-metrics:v0.4.1
         ports:
         - containerPort: 8080
 ---
@@ -280,7 +279,7 @@ spec:
     port: 8080
     protocol: TCP
   selector:
-    app: kube-state-metrics---
+    app: kube-state-metrics
 
 apiVersion: extensions/v1beta1
 kind: DaemonSet

@@ -14,11 +14,13 @@ KUBE_API_ADDRESS="--address=0.0.0.0"
 KUBELET_PORT="--kubelet_port=10250"
 
 # Address range to use for services
-KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range={{ kube_service_addresses }}"
+KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range={{ kube_service_addresses }}  --service-node-port-range='30000-35535' "
 
 # default admission control policies
 KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota"
 # Add you own!
-KUBE_API_ARGS=" --client-ca-file=/etc/kubernetes/ssl/ca.crt \
-                --tls-private-key-file=/etc/kubernetes/ssl/server.key \
-                --tls-cert-file=/etc/kubernetes/ssl/server.crt"
+KUBE_API_ARGS=" --service-account-key-file=/etc/kubernetes/ssl/apiserver-key.pem \
+                --tls-private-key-file=/etc/kubernetes/ssl/apiserver-key.pem \
+                --tls-cert-file=/etc/kubernetes/ssl/apiserver.pem \
+                --client-ca-file=/etc/kubernetes/ssl/ca.pem \
+                --advertise-address={{ groups['masters'][0]}}"

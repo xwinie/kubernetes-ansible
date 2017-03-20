@@ -32,7 +32,7 @@ dns_setup: true
 # This domain must not be used in your network. Services will be discoverable
 # under <service-name>.<namespace>.<domainname>, e.g.
 # myservice.default.kube.local
-dns_domain: kube.local.
+dns_domain: cluster.local
 
 # IP address of the DNS server.
 # Kubernetes will create a pod with several containers, serving as the DNS

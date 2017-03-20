@@ -5,8 +5,8 @@
 - name: mkdir kubelet ca from node
   file: path=/etc/kubernetes/ssl state=directory  mode=0755
 
-- name:  copy kubelet ca from master
-  copy: src=/etc/kubernetes/ssl/ca.crt dest=/etc/kubernetes/ssl/ca.crt  mode=0755 force=yes
+# - name:  copy kubelet ca from master
+#   copy: src=/etc/kubernetes/ssl/ca.crt dest=/etc/kubernetes/ssl/ca.crt  mode=0755 force=yes
 
 - name: write the config files for kubelet
   template: src=kubelet.j2 dest=/etc/kubernetes/kubelet

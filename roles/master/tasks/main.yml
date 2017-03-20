@@ -8,12 +8,16 @@
 - name: mkdir kubelet ca from master
   file: path=/etc/kubernetes/ssl state=directory  mode=0755
 
+- name: write the openssl config file for openssl
+  template: src=openssl.cnf.j2 dest=/etc/kubernetes/ssl/openssl.cnf
+
 - name: generate ca
-  command: openssl genrsa -out ca.key 2048 chdir=/etc/kubernetes/ssl
-- command: openssl req -x509 -new -nodes -key ca.key -subj "/CN=k8s.com" -days 5000 -out ca.crt chdir=/etc/kubernetes/ssl
-- command: openssl genrsa -out server.key 2048 chdir=/etc/kubernetes/ssl
-- command: openssl req -new -key server.key -subj "/CN=`hostname`" -out server.csr chdir=/etc/kubernetes/ssl
-- command: openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 5000 chdir=/etc/kubernetes/ssl
+  command: openssl genrsa -out ca-key.pem 2048 chdir=/etc/kubernetes/ssl
+- command: openssl req -x509 -new -nodes -key ca-key.pem -days 10000 -out ca.pem -subj "/CN=kube-ca"  chdir=/etc/kubernetes/ssl
+
+- command: openssl genrsa -out apiserver-key.pem 2048 chdir=/etc/kubernetes/ssl
+- command: openssl req -new -key apiserver-key.pem -out apiserver.csr -subj "/CN=kube-apiserver" -config openssl.cnf   chdir=/etc/kubernetes/ssl
+- command: openssl x509 -req -in apiserver.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out apiserver.pem -days 365 -extensions v3_req -extfile openssl.cnf chdir=/etc/kubernetes/ssl
 
 - name: write the config files for api server
   template: src=apiserver.j2 dest=/etc/kubernetes/apiserver

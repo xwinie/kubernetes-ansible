@@ -2,12 +2,14 @@
 - name: Creates directory
   file: path=/etc/kubernetes/yaml state=directory mode=0775
 
-
-- name:  copy manifests-all  
-  copy: src=prom-manifests-all.yaml dest=/etc/kubernetes/prom-manifests-all.yaml mode=0755 force=yes
-
-- name: Create manifests-all
-  shell: kubectl apply  -f /etc/kubernetes/yaml/prom-manifests-all.yaml
+- name:  copy prometheus
+  copy: src=files/prometheus.yml dest=/etc/kubernetes/yaml/prometheus.yml mode=0755 force=yes
+- name:  copy monitoring-namespace.yaml
+  copy: src=files/monitoring-namespace.yaml dest=/etc/kubernetes/yaml/monitoring-namespace.yaml mode=0755 force=yes
+- name: Create monitoring-namespace
+  shell: kubectl create  -f /etc/kubernetes/yaml/monitoring-namespace.yaml
+- name: Create monitoring-namespace
+  shell: kubectl create  -f /etc/kubernetes/yaml/prometheus.yaml
 
 
 

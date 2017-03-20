@@ -33,13 +33,13 @@
 #           - minion
 #           - k8s-images
 
-# - hosts: masters
-#   become: yes
-#   become_user: root
-#   become_method: sudo
-#   roles:  
+- hosts: masters
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:  
           # - kube-dns
           # - kube-dashboard
-          # - cadvisor
-          # - influxdb
+          - cadvisor
+          - influxdb
           # - prometheus

@@ -6,6 +6,12 @@
 # - name: build centos7-nginx dockerfile
 #   command: firewall-cmd --zone=public --add-port=8080/tcp --permanent
 
+- name: setenforce
+  command: setenforce 0
+
+# - name: truncate iptables rule
+#   command: /sbin/iptables -P INPUT ACCEPT;/sbin/iptables -F
+
 - name: Stop firewalld
   service: name=firewalld state=stopped
 
