@@ -41,5 +41,6 @@
           # - kube-dns
           # - kube-dashboard
           - cadvisor
-          - influxdb
+          - heapster
           # - prometheus
+          - grafana
