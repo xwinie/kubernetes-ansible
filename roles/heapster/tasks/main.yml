@@ -1,0 +1,105 @@
+---
+- name: Creates directory
+  file: path=/data state=directory mode=0775
+
+
+- name: Write grafana pod file
+  template: src=grafana-deployment.yaml.j2 dest=/etc/kubernetes/grafana-deployment.yaml
+
+- name: Check that the grafana pod exists
+  shell: kubectl get pods --all-namespaces|grep monitoring-grafana
+  register: has_grafana_pod
+  failed_when: false
+  changed_when: false
+
+- name: Create grafana pod
+  shell: kubectl create -f /etc/kubernetes/grafana-deployment.yaml
+  when:  has_grafana_pod.rc != 0
+
+- name: Update grafana replication service
+  shell: kubectl update -f /etc/kubernetes/grafana-deployment.yaml
+  when: has_grafana_pod.rc == 0
+
+
+- name: Write influxdb pod file
+  template: src=influxdb-deployment.yaml.j2 dest=/etc/kubernetes/influxdb-deployment.yaml
+
+- name: Check that the influxdb pod exists
+  shell: kubectl get pods --all-namespaces|grep monitoring-influxdb
+  register: has_influxdb_pod
+  failed_when: false
+  changed_when: false
+
+- name: Create influxdb pod
+  shell: kubectl create -f /etc/kubernetes/influxdb-deployment.yaml
+  when:  has_influxdb_pod.rc != 0
+
+- name: Update influxdb replication service
+  shell: kubectl update -f /etc/kubernetes/influxdb-deployment.yaml
+  when: has_influxdb_pod.rc == 0
+
+
+- name: Write heapster pod file
+  template: src=heapster-deployment.yaml.j2 dest=/etc/kubernetes/heapster-deployment.yaml
+
+- name: Check that the influxdb pod exists
+  shell: kubectl get pods --all-namespaces|grep heapster
+  register: has_heapster_pod
+  failed_when: false
+  changed_when: false
+
+- name: Create heapster pod
+  shell: kubectl create -f /etc/kubernetes/heapster-deployment.yaml
+  when:  has_heapster_pod.rc != 0
+
+- name: Update heapster replication service
+  shell: kubectl update -f /etc/kubernetes/heapster-deployment.yaml
+  when: has_heapster_pod.rc == 0
+
+
+- name: Write heapster service file
+  template: src=heapster-service.yaml.j2 dest=/etc/kubernetes/heapster-service.yaml
+- name: Check that the heapster service exists
+  shell: kubectl get svc --all-namespaces|grep heapster
+  register: has_heapster_service
+  failed_when: false
+  changed_when: false
+- name: Write grafana service file
+  template: src=grafana-service.yaml.j2 dest=/etc/kubernetes/grafana-service.yaml
+- name: Check that the grafana service exists
+  shell: kubectl get svc --all-namespaces|grep monitoring-grafana
+  register: has_grafana_service
+  failed_when: false
+  changed_when: false
+- name: Write influxdb service file
+  template: src=influxdb-service.yaml.j2 dest=/etc/kubernetes/influxdb-service.yaml
+- name: Check that the grafana service exists
+  shell: kubectl get svc --all-namespaces|grep monitoring-influxdb
+  register: has_influxdb_service
+  failed_when: false
+  changed_when: false
+
+- name: update heapster  service
+  shell: kubectl update -f /etc/kubernetes/heapster-service.yaml
+  when: has_heapster_service.rc == 0
+- name: Create heapster service
+  shell: kubectl create -f /etc/kubernetes/heapster-service.yaml
+  when: has_heapster_service.rc != 0
+
+- name: update influxdb  service
+  shell: kubectl update -f /etc/kubernetes/influxdb-service.yaml
+  when: has_influxdb_service.rc ==  0
+
+- name: Create influxdb service
+  shell: kubectl create -f /etc/kubernetes/influxdb-service.yaml
+  when: has_influxdb_service.rc != 0
+
+
+- name: update grafana replication service
+  shell: kubectl Update -f /etc/kubernetes/grafana-service.yaml
+  when: has_grafana_service.rc ==  0
+
+- name: Create grafana service
+  shell: kubectl create -f /etc/kubernetes/grafana-service.yaml
+  when: has_grafana_service.rc != 0
+

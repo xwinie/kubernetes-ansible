@@ -1,0 +1,10 @@
+---
+
+- name:  copy grafana
+  copy: src=files/grafana.yml dest=/etc/kubernetes/yaml/grafana.yml mode=0755 force=yes
+
+- name: Create grafana
+  shell: kubectl create  -f /etc/kubernetes/yaml/grafana.yaml
+
+
+

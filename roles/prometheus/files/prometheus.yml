@@ -198,13 +198,13 @@ kind: ConfigMap
 metadata:
   creationTimestamp: null
   name: prometheus-core
-  namespace: monitoring
+  namespace: kube-system
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: prometheus-core
-  namespace: monitoring
+  namespace: kube-system
   labels:
     app: prometheus
     component: core
@@ -250,7 +250,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: kube-state-metrics-deployment
-  namespace: monitoring
+  namespace: kube-system
 spec:
   replicas: 1
   template:
@@ -270,7 +270,7 @@ metadata:
   annotations:
     prometheus.io/scrape: 'true'
   name: kube-state-metrics
-  namespace: monitoring
+  namespace: kube-system
   labels:
     app: kube-state-metrics
 spec:
@@ -285,7 +285,7 @@ apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: prometheus-node-exporter
-  namespace: monitoring
+  namespace: kube-system
   labels:
     app: prometheus
     component: node-exporter
@@ -315,7 +315,7 @@ metadata:
   annotations:
     prometheus.io/scrape: 'true'
   name: prometheus-node-exporter
-  namespace: monitoring
+  namespace: kube-system
   labels:
     app: prometheus
     component: node-exporter
@@ -334,7 +334,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prometheus
-  namespace: monitoring
+  namespace: kube-system
   labels:
     app: prometheus
     component: core
