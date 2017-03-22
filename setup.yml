@@ -40,7 +40,6 @@
   roles:  
           # - kube-dns
           # - kube-dashboard
-          # - cadvisor
-          # - heapster
-          - prometheus
-          # - grafana
+          - cadvisor
+          - monitoring
+  
