@@ -1,10 +1,13 @@
 ---
+- name: Creates directory
+  file: path=/etc/kubernetes/yaml state=directory mode=0775
+
 - name: Write kubedns pod file
-  template: src=kubedns-rc.yml.j2 dest=/etc/kubernetes/kubedns-rc.yaml
+  template: src=kubedns-rc.yml.j2 dest=/etc/kubernetes/yaml/kubedns-rc.yaml
   when: dns_setup
 
 - name: Write kubedns service file
-  template: src=kubedns-svc.yml.j2 dest=/etc/kubernetes/kubedns-svc.yaml
+  template: src=kubedns-svc.yml.j2 dest=/etc/kubernetes/yaml/kubedns-svc.yaml
   when: dns_setup
 
 
@@ -15,11 +18,11 @@
   changed_when: false
 
 - name: Create kubedns pod
-  shell: kubectl create -f /etc/kubernetes/kubedns-rc.yaml
+  shell: kubectl create -f /etc/kubernetes/yaml/kubedns-rc.yaml
   when: dns_setup and has_dns_pod.rc != 0
 
 - name: Update DNS replication service
-  shell: kubectl update -f /etc/kubernetes/kubedns-rc.yaml
+  shell: kubectl update -f /etc/kubernetes/yaml/kubedns-rc.yaml
   when: dns_setup and has_dns_pod.rc == 0
 
 
@@ -30,9 +33,9 @@
   changed_when: false
 
 - name: Create kubedns service
-  shell: kubectl create -f /etc/kubernetes/kubedns-svc.yaml
+  shell: kubectl create -f /etc/kubernetes/yaml/kubedns-svc.yaml
   when: dns_setup and has_dns_service.rc != 0
 
 - name: Update kubedns service
-  shell: kubectl update -f /etc/kubernetes/kubedns-svc.yaml
+  shell: kubectl update -f /etc/kubernetes/yaml/kubedns-svc.yaml
   when: dns_setup and has_dns_service.rc == 0

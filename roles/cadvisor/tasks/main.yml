@@ -1,7 +1,7 @@
 ---
-- name: pull an cadvisor image
-  docker_image:
-    name: index.tenxcloud.com/google/cadvisor
+# - name: pull an cadvisor image
+#   docker_image:
+#     name: index.tenxcloud.com/google/cadvisor
     
 - name: Write cadvisor pod file
   template: src=cadvisor-rc.yml.j2 dest=/etc/kubernetes/cadvisor-rc.yaml
