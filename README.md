@@ -50,5 +50,4 @@ You already did the config!  Just run the setup::
 
 - add kube-dashboard
 - add cadvisor
-- add heapster influxdb grafana
-- add promethous 
+- add heapster influxdb grafana promethous

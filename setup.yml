@@ -1,10 +1,10 @@
 ---
-- hosts: all
-  become: yes
-  become_user: root
-  become_method: sudo
-  roles:
-          - common
+# - hosts: all
+#   become: yes
+#   become_user: root
+#   become_method: sudo
+#   roles:
+#           - common
 
 # - hosts: etcd
 #   become: yes
@@ -38,8 +38,8 @@
   become_user: root
   become_method: sudo
   roles:  
-          # - kube-dns
-          # - kube-dashboard
+          - kube-dns
+          - kube-dashboard
           - cadvisor
           - monitoring
   

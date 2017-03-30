@@ -16,8 +16,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             config.ssh.password = "vagrant"
 			#config.ssh.host  = opts[:ip]
             config.vm.synced_folder ".", "/vagrant"
-            config.vm.network :public_network, ip: opts[:ip]
-            #config.vm.network "private_network", ip: opts[:ip]
+            config.vm.network :public_network, :bridge => "en0: Wi-Fi (Airport)",ip: opts[:ip]
+            #config.vm.network :private_network, ip: opts[:ip],auto_config: false
             config.vm.hostname = "%s.vagrant" % opts[:name].to_s
             config.vm.provider "virtualbox" do |vb|
                 vb.customize ["modifyvm", :id, "--cpus", opts[:cpus] ] if opts[:cpus]

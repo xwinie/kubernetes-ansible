@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-runner
+  namespace: kube-system
+data:
+  register.sh: |
+   gitlab-ci-multi-runner register  -r EfGV_TPagK5X8xyF4Anb -u http://git.chuangjia.me/ci  --executor shell  -n  -c /etc/gitlab-runner/config.toml;
+   gitlab-ci-multi-runner run
+  config.toml: |
+    concurrent = 1
+    check_interval = 0
+    [[runners]]
+     name = "my-build"
+     url = "http://git.chuangjia.me/ci"
+     token = "a32b8d6bc1b1f8d65436ce4b1efca1"
+     executor = "shell"

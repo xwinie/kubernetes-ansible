@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gitlab-runner
+  namespace: kube-system
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: gitlab-runner
+        app: gitlab-runner
+    spec:
+      containers:
+      - name: gitlab-runner
+        image: index.tenxcloud.com/mxq0923/gitlab-runner
+        # command: ["sh", "/etc/gitlab-runner/register.sh"]
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 500Mi
+            cpu: 600m
+          requests:
+            memory: 500Mi
+            cpu: 600m
+        volumeMounts:
+        - name: config
+          mountPath: /etc/gitlab-runner
+      volumes:
+      - name: config
+        configMap:
+          name: gitlab-runner

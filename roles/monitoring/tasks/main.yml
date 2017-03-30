@@ -7,29 +7,27 @@
 
 - name:  copy prometheus
   copy: src=./files/prometheus.yml dest=/etc/kubernetes/yaml/prometheus.yml mode=0755 force=yes
-- name:  copy grafana-import-dashboards-job.yaml
-  copy: src=./files/grafana-import-dashboards-job.yaml dest=/etc/kubernetes/yaml/grafana-import-dashboards-job.yaml mode=0755 force=yes
-  
+
 - name:  Create prometheus
   shell: kubectl create  -f /etc/kubernetes/yaml/prometheus.yml
 
 
-- name: Write grafana pod file
-  template: src=grafana-deployment.yaml.j2 dest=/etc/kubernetes/yaml/grafana-deployment.yaml
+# - name: Write grafana pod file
+#   template: src=grafana-deployment.yaml.j2 dest=/etc/kubernetes/yaml/grafana-deployment.yaml
 
-- name: Check that the grafana pod exists
-  shell: kubectl get pods --all-namespaces|grep monitoring-grafana
-  register: has_grafana_pod
-  failed_when: false
-  changed_when: false
+# - name: Check that the grafana pod exists
+#   shell: kubectl get pods --all-namespaces|grep monitoring-grafana
+#   register: has_grafana_pod
+#   failed_when: false
+#   changed_when: false
 
-- name: Create grafana pod
-  shell: kubectl create -f /etc/kubernetes/yaml/grafana-deployment.yaml
-  when:  has_grafana_pod.rc != 0
+# - name: Create grafana pod
+#   shell: kubectl create -f /etc/kubernetes/yaml/grafana-deployment.yaml
+#   when:  has_grafana_pod.rc != 0
 
-- name: Update grafana replication service
-  shell: kubectl update -f /etc/kubernetes/yaml/grafana-deployment.yaml
-  when: has_grafana_pod.rc == 0
+# - name: Update grafana replication service
+#   shell: kubectl update -f /etc/kubernetes/yaml/grafana-deployment.yaml
+#   when: has_grafana_pod.rc == 0
 
 
 - name: Write influxdb pod file
@@ -75,13 +73,13 @@
   failed_when: false
   changed_when: false
 
-- name: Write grafana service file
-  template: src=grafana-service.yaml.j2 dest=/etc/kubernetes/yaml/grafana-service.yaml
-- name: Check that the grafana service exists
-  shell: kubectl get svc --all-namespaces|grep monitoring-grafana
-  register: has_grafana_service
-  failed_when: false
-  changed_when: false
+# - name: Write grafana service file
+#   template: src=grafana-service.yaml.j2 dest=/etc/kubernetes/yaml/grafana-service.yaml
+# - name: Check that the grafana service exists
+#   shell: kubectl get svc --all-namespaces|grep monitoring-grafana
+#   register: has_grafana_service
+#   failed_when: false
+#   changed_when: false
 
 - name: Write influxdb service file
   template: src=influxdb-service.yaml.j2 dest=/etc/kubernetes/yaml/influxdb-service.yaml
@@ -107,13 +105,10 @@
   when: has_influxdb_service.rc != 0
 
 
-- name: update grafana replication service
-  shell: kubectl Update -f /etc/kubernetes/yaml/grafana-service.yaml
-  when: has_grafana_service.rc ==  0
+# - name: update grafana replication service
+#   shell: kubectl Update -f /etc/kubernetes/yaml/grafana-service.yaml
+#   when: has_grafana_service.rc ==  0
 
-- name: Create grafana service
-  shell: kubectl create -f /etc/kubernetes/yaml/grafana-service.yaml
-  when: has_grafana_service.rc != 0
-
-- name:  Create grafana-import-dashboards
-  shell: kubectl create  -f /etc/kubernetes/yaml/grafana-import-dashboards-job.yaml
+# - name: Create grafana service
+#   shell: kubectl create -f /etc/kubernetes/yaml/grafana-service.yaml
+#   when: has_grafana_service.rc != 0
