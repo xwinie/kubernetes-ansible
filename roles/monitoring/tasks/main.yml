@@ -6,10 +6,10 @@
   file: path=/etc/kubernetes/yaml state=directory mode=0775
 
 - name:  copy prometheus
-  copy: src=./files/prometheus.yml dest=/etc/kubernetes/yaml/prometheus.yml mode=0755 force=yes
+  copy: src=./files/prometheus.yaml dest=/etc/kubernetes/yaml/prometheus.yaml mode=0755 force=yes
 
 - name:  Create prometheus
-  shell: kubectl create  -f /etc/kubernetes/yaml/prometheus.yml
+  shell: kubectl create  -f /etc/kubernetes/yaml/prometheus.yaml
 
 
 # - name: Write grafana pod file

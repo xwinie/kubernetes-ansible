@@ -38,8 +38,8 @@
   become_user: root
   become_method: sudo
   roles:  
-          - kube-dns
-          - kube-dashboard
-          - cadvisor
+          # - kube-dns
+          # - kube-dashboard
+          # - cadvisor
           - monitoring
   

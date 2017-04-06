@@ -1,9 +1,9 @@
 [masters]
-192.168.10.213 ansible_user=root ansible_ssh_pass=vagrant ansible_become_pass=vagrant
+192.168.10.228 ansible_user=root ansible_ssh_pass=cj*dev ansible_become_pass=cj*dev
 
 [etcd]
-192.168.10.213 ansible_user=root ansible_ssh_pass=vagrant ansible_become_pass=vagrant
+192.168.10.228 ansible_user=root ansible_ssh_pass=cj*dev ansible_become_pass=cj*dev
 
 [minions]
-192.168.10.214 ansible_user=root ansible_ssh_pass=vagrant ansible_become_pass=vagrant
-192.168.10.215 ansible_user=root ansible_ssh_pass=vagrant ansible_become_pass=vagrant
+192.168.10.229 ansible_user=root ansible_ssh_pass=cj*dev ansible_become_pass=cj*dev
+192.168.10.230 ansible_user=root ansible_ssh_pass=cj*dev ansible_become_pass=cj*dev
